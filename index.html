@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sítio</title>
+<meta name="description" content="Veja as datas livres e reserve pelo WhatsApp.">
+<meta name="theme-color" content="#1F3A1D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fundo:#F1F3EC; --papel:#FCFDF9; --tinta:#1D261B; --suave:#5A6556;
+    --mata:#2E5A2B; --mata-esc:#1F3A1D; --broto:#DDEBD0; --faixa:#B9D6A5;
+    --terra:#8C4A32; --milho:#E6B422; --nevoa:#A7AEA2; --linha:#D8DECF; --zap:#1F7A3A;
+    --serif:"Young Serif",Georgia,"Times New Roman",serif;
+    --sans:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --largura:72rem;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  html,body{margin:0}
+  body{background:var(--fundo);color:var(--tinta);font:16px/1.55 var(--sans);padding-bottom:7.5rem}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--largura);margin:0 auto;padding:0 1.25rem}
+  :focus-visible{outline:3px solid var(--milho);outline-offset:2px}
+
+  /* ---------- Capa ---------- */
+  .capa{position:relative;min-height:min(86vh,46rem);display:flex;align-items:flex-end;
+        color:#fff;background:var(--mata-esc);overflow:hidden}
+  .capa-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .capa::after{content:"";position:absolute;inset:0;
+        background:linear-gradient(to top,rgba(15,28,14,.88) 0%,rgba(15,28,14,.35) 45%,rgba(15,28,14,.05) 75%)}
+  .capa-txt{position:relative;z-index:1;padding:5rem 1.25rem 3rem;width:100%}
+  .capa-txt .wrap{padding:0}
+  .local{margin:0 0 .75rem;font-weight:500;opacity:.9}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,9vw,5.5rem);
+     line-height:1;margin:0 0 1rem;max-width:14ch;letter-spacing:-.01em}
+  .capa-sub{font-size:clamp(1.05rem,2.6vw,1.3rem);margin:0 0 1.75rem;max-width:38ch;opacity:.92}
+  .capa-acoes{display:flex;flex-wrap:wrap;gap:.75rem}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.75rem 1.4rem;
+       border-radius:999px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;border:0}
+  .btn-claro{background:#fff;color:var(--mata-esc)}
+  .btn-vidro{background:rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);
+             backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+  /* ---------- Destaques ---------- */
+  .fatos{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:1px;
+         background:var(--linha);border:1px solid var(--linha);border-radius:16px;overflow:hidden;
+         margin:-2.25rem auto 0;position:relative;z-index:2}
+  .fato{background:var(--papel);padding:1rem 1.1rem}
+  .fato b{display:block;font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--mata);line-height:1.15}
+  .fato span{font-size:.9rem;color:var(--suave)}
+
+  section{padding:4.5rem 0 0}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.75rem,4.5vw,2.5rem);line-height:1.1;margin:0 0 .5rem;color:var(--mata-esc)}
+  .intro{color:var(--suave);margin:0 0 1.75rem;max-width:48ch}
+
+  /* ---------- Galeria ---------- */
+  .galeria{display:grid;gap:.6rem;grid-template-columns:repeat(4,1fr);grid-auto-rows:11rem}
+  .foto{position:relative;margin:0;border-radius:12px;overflow:hidden;background:var(--broto);
+        cursor:zoom-in;border:0;padding:0;font:inherit;text-align:left}
+  .foto img{width:100%;height:100%;object-fit:cover}
+  .foto:first-child{grid-column:span 2;grid-row:span 2}
+  .galeria.poucas{grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));grid-auto-rows:16rem}
+  .galeria.poucas .foto:first-child{grid-column:auto;grid-row:auto}
+  .foto.s2{grid-column:span 2}.foto.s4{grid-column:span 4}
+  .foto figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.5rem .9rem .7rem;color:#fff;
+        font-weight:600;font-size:.95rem;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)}
+  .foto.sem img{display:none}
+  .foto.sem{display:flex;align-items:center;justify-content:center;cursor:default;
+        background:repeating-linear-gradient(135deg,var(--broto) 0 10px,#E6F0DC 10px 20px)}
+  .foto.sem::before{content:attr(data-falta);color:var(--mata);font-size:.85rem;padding:1rem;text-align:center}
+  .foto.sem figcaption{background:none;color:var(--mata)}
+  @media (hover:hover) and (prefers-reduced-motion:no-preference){
+    .foto img{transition:transform .5s ease}
+    .foto:hover img{transform:scale(1.04)}
+  }
+  @media (max-width:44rem){
+    .galeria{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.6rem;
+             margin:0 -1.25rem;padding:0 1.25rem .5rem;scrollbar-width:none}
+    .galeria::-webkit-scrollbar{display:none}
+    .foto,.foto:first-child,.foto.s2,.foto.s4{flex:0 0 82%;height:15rem;scroll-snap-align:center}
+  }
+
+  /* ---------- Lightbox ---------- */
+  dialog.visor{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh;margin:0}
+  dialog.visor::backdrop{background:rgba(10,16,9,.92)}
+  .visor-in{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:3.5rem 1rem 4.5rem}
+  .visor img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
+  .visor p{position:absolute;bottom:1.25rem;left:0;right:0;text-align:center;color:#fff;margin:0;font-weight:500}
+  .vbtn{position:absolute;width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;
+        background:rgba(255,255,255,.14);color:#fff;font-size:1.6rem;line-height:1}
+  .vbtn:hover{background:rgba(255,255,255,.26)}
+  .v-fechar{top:1rem;right:1rem;font-size:1.3rem}
+  .v-ant{left:1rem;top:50%;margin-top:-24px}
+  .v-prox{right:1rem;top:50%;margin-top:-24px}
+
+  /* ---------- Estrutura + Agenda ---------- */
+  .duas{display:grid;gap:3rem;grid-template-columns:1fr}
+  @media (max-width:59.99rem){ .agenda{order:-1} }
+  @media (min-width:60rem){
+    .duas{grid-template-columns:minmax(0,1fr) 27rem;align-items:start}
+    .agenda{position:sticky;top:1.5rem}
+  }
+  .itens{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.25rem 1.5rem}
+  .itens li{display:flex;gap:.6rem;align-items:baseline;padding:.6rem 0;border-bottom:1px solid var(--linha)}
+  .itens li::before{content:"";flex:0 0 8px;height:8px;border-radius:50%;background:var(--mata);transform:translateY(-1px)}
+  .regras{margin-top:2.5rem;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:1.25rem 1.4rem}
+  .regras h3{font-family:var(--serif);font-weight:400;font-size:1.25rem;margin:0 0 .5rem}
+  .regras ul{margin:0;padding-left:1.1rem;color:var(--suave)}
+  .regras li{margin:.25rem 0}
+  .mapa[hidden]{display:none}
+  .mapa{display:inline-flex;margin-top:1.5rem;color:var(--mata);font-weight:600}
+
+  .calendario{background:var(--papel);border:1px solid var(--linha);border-radius:20px;padding:1rem;
+              box-shadow:0 1px 0 var(--linha),0 18px 40px -24px rgba(31,58,29,.35)}
+  .cab{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+  .cab h3{font-family:var(--serif);font-weight:400;font-size:1.3rem;margin:0}
+  .nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--linha);background:transparent;
+       font-size:1.2rem;line-height:1;cursor:pointer;color:var(--mata)}
+  .nav:disabled{opacity:.3;cursor:default}
+  .semana,.grade{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .semana span{text-align:center;font-size:.8rem;color:var(--suave);font-weight:600;padding:.25rem 0}
+  .dia{aspect-ratio:1;border:0;border-radius:8px;font:inherit;font-weight:600;font-size:1rem;
+       cursor:pointer;background:var(--broto);color:var(--mata);position:relative;padding:0}
+  .dia.passado{background:transparent;color:var(--nevoa);font-weight:400;cursor:default}
+  .dia.ocupado{background:repeating-linear-gradient(135deg,#EBD9CF 0 4px,#F6ECE6 4px 8px);
+       color:var(--terra);text-decoration:line-through;cursor:not-allowed}
+  .dia.pre{background:#FBEFC7;color:#7A5C00;box-shadow:inset 0 0 0 2px var(--milho);cursor:not-allowed}
+  .dia.faixa{background:var(--faixa);color:var(--tinta)}
+  .dia.inicio,.dia.fim{background:var(--mata);color:#fff}
+  .dia.hoje::after{content:"";position:absolute;bottom:6px;left:50%;width:4px;height:4px;
+       margin-left:-2px;border-radius:50%;background:currentColor}
+  .vazio{aspect-ratio:1}
+  .estado{grid-column:1/-1;text-align:center;color:var(--suave);padding:3rem 1rem}
+  .legenda{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin:1rem .25rem 0;font-size:.875rem;color:var(--suave)}
+  .legenda i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:.4rem}
+  .l-livre{background:var(--broto)}
+  .l-ocupado{background:repeating-linear-gradient(135deg,#D9B8A8 0 3px,#F6ECE6 3px 6px)}
+  .l-pre{background:#FBEFC7;box-shadow:inset 0 0 0 2px var(--milho)}
+  .dica{margin:1rem .25rem 0;font-size:.9rem;color:var(--suave)}
+  @media (prefers-reduced-motion:no-preference){ .dia{transition:background-color .15s,color .15s} }
+
+  footer{margin-top:5rem;padding:2rem 0;border-top:1px solid var(--linha);color:var(--suave);font-size:.9rem}
+
+  /* ---------- Barra de reserva ---------- */
+  .painel{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(252,253,249,.94);
+          backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--linha);
+          padding:.85rem 1.25rem calc(.85rem + env(safe-area-inset-bottom,0px))}
+  .painel-in{max-width:var(--largura);margin:0 auto;display:flex;gap:.75rem 1rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .resumo{margin:0;font-size:.95rem;flex:1 1 15rem}
+  .resumo strong{display:block;font-size:1.05rem}
+  .aviso{color:var(--terra)}
+  .acoes{display:flex;align-items:center;gap:.75rem}
+  .limpar{background:none;border:0;color:var(--suave);font:inherit;font-size:.9rem;text-decoration:underline;cursor:pointer;padding:.5rem}
+  .whats{background:var(--zap);color:#fff;white-space:nowrap}
+  .whats[aria-disabled="true"]{background:var(--nevoa);pointer-events:none}
+</style>
+</head>
+<body>
+
+<header class="capa">
+  <img class="capa-img" id="capaImg" alt="" fetchpriority="high">
+  <div class="capa-txt">
+    <div class="wrap">
+      <p class="local" id="local"></p>
+      <h1 id="titulo">Sítio</h1>
+      <p class="capa-sub" id="subtitulo"></p>
+      <div class="capa-acoes">
+        <a class="btn btn-claro" href="#agenda">Ver datas livres</a>
+        <a class="btn btn-vidro" href="#fotos">Ver fotos</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="fatos" id="fatos"></div>
+
+  <section id="fotos" aria-labelledby="t-fotos">
+    <h2 id="t-fotos">Conheça o espaço</h2>
+    <p class="intro">Toque em uma foto para ampliar.</p>
+    <div class="galeria" id="galeria"></div>
+  </section>
+
+  <section aria-labelledby="t-estrutura">
+    <div class="duas">
+      <div>
+        <h2 id="t-estrutura">O que tem no sítio</h2>
+        <p class="intro" id="descricao"></p>
+        <ul class="itens" id="comodidades"></ul>
+        <div class="regras" id="regrasBox">
+          <h3>Bom saber</h3>
+          <ul id="regras"></ul>
+        </div>
+        <a class="mapa" id="mapa" target="_blank" rel="noopener" hidden>Ver localização no mapa</a>
+      </div>
+
+      <div class="agenda" id="agenda">
+        <h2>Datas disponíveis</h2>
+        <p class="intro">Toque no primeiro e no último dia. Para um dia só, toque apenas nele.</p>
+        <div class="calendario" role="group" aria-label="Calendário de disponibilidade">
+          <div class="cab">
+            <button class="nav" id="anterior" aria-label="Mês anterior">&#8249;</button>
+            <h3 id="mes" aria-live="polite"></h3>
+            <button class="nav" id="proximo" aria-label="Próximo mês">&#8250;</button>
+          </div>
+          <div class="semana" aria-hidden="true">
+            <span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span>
+          </div>
+          <div class="grade" id="grade"><div class="estado">Carregando a agenda...</div></div>
+        </div>
+        <div class="legenda">
+          <span><i class="l-livre"></i>Livre</span>
+          <span><i class="l-ocupado"></i>Ocupado</span>
+          <span><i class="l-pre"></i>Em negociação</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="rodape"></footer>
+</main>
+
+<div class="painel">
+  <div class="painel-in">
+    <p class="resumo" id="resumo" role="status">Escolha uma data no calendário.</p>
+    <div class="acoes">
+      <button class="limpar" id="limpar" hidden>Limpar</button>
+      <a class="btn whats" id="whats" href="#" target="_blank" rel="noopener" aria-disabled="true">Chamar no WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<dialog class="visor" id="visor" aria-label="Foto ampliada">
+  <div class="visor-in">
+    <img id="visorImg" alt="">
+    <p id="visorLeg"></p>
+    <button class="vbtn v-fechar" id="vFechar" aria-label="Fechar">&#10005;</button>
+    <button class="vbtn v-ant" id="vAnt" aria-label="Foto anterior">&#8249;</button>
+    <button class="vbtn v-prox" id="vProx" aria-label="Próxima foto">&#8250;</button>
+  </div>
+</dialog>
+
+<script>
+/* ================== CONFIGURAÇÃO ================== */
+const CONFIG = {
+  nomeSitio: "Sítio (nome sitio)",
+  local: "Interior de São Paulo",
+  subtitulo: "Espaço para descansar, reunir a família e comemorar. Veja as datas livres e reserve pelo WhatsApp.",
+  whatsapp: "5519999999999",                // DDI + DDD + número, só dígitos
+  planilhaId: "1L_SEBgE-s_DbmSUgkiOZNX4Br0r0OutBh0pEmAlwKcY",
+  aba: "",                                   // nome da aba; vazio = primeira aba
+  mesesAFrente: 12,
+  mensagem: "Olá! Vi a agenda do {sitio} e tenho interesse em alugar {periodo}. Essa data está disponível?",
+
+  // Fotos: coloque os arquivos na pasta "fotos" ao lado deste index.html.
+  // A primeira é a capa e o destaque da galeria.
+  fotos: [
+    { src: "fotos/01.jpg", legenda: "" },
+    { src: "fotos/02.jpg", legenda: "" },
+    { src: "fotos/03.jpg", legenda: "" },
+    { src: "fotos/04.jpg", legenda: "" },
+    { src: "fotos/05.jpg", legenda: "" },
+    { src: "fotos/06.jpg", legenda: "" }
+  ],
+
+  // Números de destaque abaixo da capa (pode apagar ou trocar)
+  fatos: [
+    { valor: "Até x", rotulo: "pessoas" },
+    { valor: "num", rotulo: "quartos" },
+    { valor: "Piscina", rotulo: "ampla" },
+    { valor: "1h", rotulo: "de São Paulo" }
+  ],
+
+  descricao: "Casa ampla, área de lazer completa e muito verde ao redor, ideal para fins de semana e festas.",
+  comodidades: [
+    "Piscina", "Churrasqueira", "Wi-Fi", "Estacionamento", "Cozinha equipada", "Roupa de cama"
+  ],
+  regras: [
+    "Entrada a partir das 10h, saída até as 17h",
+    "Animais de estimação mediante consulta",
+    "Reserva confirmada com sinal"
+  ],
+  linkMapa: ""        // cole aqui o link do Google Maps (Compartilhar > Copiar link); vazio = esconde
+};
+/* ================================================== */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- Conteúdo ---------- */
+document.title = CONFIG.nomeSitio + " | Datas disponíveis";
+$("titulo").textContent = CONFIG.nomeSitio;
+$("subtitulo").textContent = CONFIG.subtitulo;
+$("local").textContent = CONFIG.local || "";
+$("descricao").textContent = CONFIG.descricao || "";
+$("rodape").textContent = CONFIG.nomeSitio + ". Reservas pelo WhatsApp.";
+
+if (CONFIG.fotos.length){
+  const capa=$("capaImg");
+  capa.src=CONFIG.fotos[0].src;
+  capa.onerror=()=>capa.remove();
+}
+
+$("fatos").innerHTML = (CONFIG.fatos||[]).map(f=>'<div class="fato"><b>'+esc(f.valor)+'</b><span>'+esc(f.rotulo)+'</span></div>').join("");
+if (!(CONFIG.fatos||[]).length) $("fatos").remove();
+
+$("comodidades").innerHTML = (CONFIG.comodidades||[]).map(c=>"<li>"+esc(c)+"</li>").join("");
+if ((CONFIG.regras||[]).length) $("regras").innerHTML = CONFIG.regras.map(r=>"<li>"+esc(r)+"</li>").join("");
+else $("regrasBox").remove();
+if (CONFIG.linkMapa){ $("mapa").href=CONFIG.linkMapa; $("mapa").hidden=false; }
+
+/* ---------- Galeria + visor ---------- */
+const fotosOk=[];
+const gal=$("galeria");
+CONFIG.fotos.forEach((f,i)=>{
+  const b=document.createElement("figure");
+  b.className="foto"; b.tabIndex=0; b.setAttribute("role","button");
+  b.setAttribute("aria-label","Ampliar foto: "+(f.legenda||"foto "+(i+1)));
+  b.dataset.falta="Adicione o arquivo "+f.src;
+  b.innerHTML='<img loading="'+(i<3?"eager":"lazy")+'" alt="'+esc(f.legenda||"")+'" src="'+esc(f.src)+'">'+
+              (f.legenda?'<figcaption>'+esc(f.legenda)+'</figcaption>':"");
+  const img=b.querySelector("img");
+  img.onerror=()=>{ b.classList.add("sem"); b.removeAttribute("role"); b.tabIndex=-1; f.quebrada=true; };
+  const abrir=()=>{ if(!f.quebrada) abrirVisor(i); };
+  b.addEventListener("click",abrir);
+  b.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); abrir(); } });
+  gal.appendChild(b);
+});
+
+/* Fecha a última linha do mosaico sem buracos (desktop) */
+(function(){
+  const n=CONFIG.fotos.length, itens=gal.children;
+  if (n<5){ gal.classList.add("poucas"); return; }
+  const resto=(n-5)%4;
+  if (resto===1) itens[n-1].classList.add("s4");
+  if (resto===2){ itens[n-1].classList.add("s2"); itens[n-2].classList.add("s2"); }
+  if (resto===3) itens[n-3].classList.add("s2");
+})();
+
+const visor=$("visor"); let atual=0;
+function validas(){ return CONFIG.fotos.map((f,i)=>i).filter(i=>!CONFIG.fotos[i].quebrada); }
+function mostrar(i){
+  atual=i; const f=CONFIG.fotos[i];
+  $("visorImg").src=f.src; $("visorImg").alt=f.legenda||""; $("visorLeg").textContent=f.legenda||"";
+  const v=validas(); $("vAnt").hidden=$("vProx").hidden = v.length<2;
+}
+function abrirVisor(i){ mostrar(i); visor.showModal(); }
+function passo(n){ const v=validas(); if(!v.length) return; const p=v.indexOf(atual); mostrar(v[(p+n+v.length)%v.length]); }
+$("vFechar").onclick=()=>visor.close();
+$("vAnt").onclick=()=>passo(-1);
+$("vProx").onclick=()=>passo(1);
+visor.addEventListener("click",e=>{ if(e.target===visor||e.target.classList.contains("visor-in")) visor.close(); });
+visor.addEventListener("keydown",e=>{ if(e.key==="ArrowLeft") passo(-1); if(e.key==="ArrowRight") passo(1); });
+let toqueX=null;
+visor.addEventListener("touchstart",e=>{ toqueX=e.touches[0].clientX; },{passive:true});
+visor.addEventListener("touchend",e=>{ if(toqueX==null) return; const d=e.changedTouches[0].clientX-toqueX; if(Math.abs(d)>50) passo(d<0?1:-1); toqueX=null; });
+
+/* ---------- Agenda ---------- */
+const DIAS = ["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
+const hoje = zerar(new Date());
+const mapa = new Map();            // "aaaa-m-d" -> "ocupado" | "pre"
+let vista = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+let sel = { ini: null, fim: null };
+let carregado = false;
+
+function zerar(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function chave(d){ return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); }
+function mesmoDia(a,b){ return a && b && chave(a)===chave(b); }
+function somaDias(d,n){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()+n); }
+function fmt(d, ano=true){
+  const dd=String(d.getDate()).padStart(2,"0"), mm=String(d.getMonth()+1).padStart(2,"0");
+  return ano ? dd+"/"+mm+"/"+d.getFullYear() : dd+"/"+mm;
+}
+function statusDia(d){
+  if (d < hoje) return "passado";
+  return mapa.get(chave(d)) || "livre";
+}
+function lerData(s){
+  s=(s||"").trim(); if(!s) return null;
+  let m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/), d, a, me, di;
+  if (m){ di=+m[1]; me=+m[2]-1; a=+m[3]; if(a<100) a+=2000; }
+  else if ((m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))){ a=+m[1]; me=+m[2]-1; di=+m[3]; }
+  else return null;
+  d=new Date(a,me,di);
+  return (d.getDate()===di && d.getMonth()===me) ? d : null;
+}
+function celulaData(c){
+  if (!c || c.v==null) return null;
+  const m=String(c.v).match(/^Date\((\d+),(\d+),(\d+)/);
+  if (m) return new Date(+m[1], +m[2], +m[3]);
+  return lerData(c.f || String(c.v));
+}
+function processarLinhas(linhas){
+  mapa.clear();
+  for (const l of linhas){
+    let ini=l[0]; if(!ini) continue;
+    let fim=l[1] || ini;
+    if (fim<ini) [ini,fim]=[fim,ini];
+    const st=(l[2]||"").toLowerCase().includes("pr") ? "pre" : "ocupado";
+    for (let d=ini; d<=fim; d=somaDias(d,1)){
+      const k=chave(d);
+      if (mapa.get(k)!=="ocupado") mapa.set(k, st);
+    }
+  }
+}
+function lerPlanilha(){
+  return new Promise((ok, falha)=>{
+    const cb="__agenda_"+Date.now();
+    let url="https://docs.google.com/spreadsheets/d/"+encodeURIComponent(CONFIG.planilhaId)+
+            "/gviz/tq?tqx=out:json;responseHandler:"+cb+"&headers=1";
+    if (CONFIG.aba) url+="&sheet="+encodeURIComponent(CONFIG.aba);
+    url+="&t="+Date.now();
+    const s=document.createElement("script");
+    const limpar=()=>{ delete window[cb]; s.remove(); clearTimeout(t); };
+    const t=setTimeout(()=>{ limpar(); falha(new Error("Tempo esgotado ao acessar a planilha")); }, 15000);
+    window[cb]=resp=>{
+      limpar();
+      if (resp.status==="error"){
+        const e=(resp.errors||[])[0]||{};
+        return falha(new Error(e.detailed_message || e.message || e.reason || "Erro da planilha"));
+      }
+      ok((resp.table.rows||[]).map(r=>{
+        const c=r.c||[];
+        return [celulaData(c[0]), celulaData(c[1]), c[2] ? String(c[2].f || c[2].v || "") : ""];
+      }));
+    };
+    s.onerror=()=>{ limpar(); falha(new Error("Planilha inacessível (ID errado ou não compartilhada como 'Qualquer pessoa com o link')")); };
+    s.src=url;
+    document.head.appendChild(s);
+  });
+}
+async function carregar(){
+  if (!/^[\w-]{20,}$/.test(CONFIG.planilhaId)) return mostrarErro("O ID da planilha não foi configurado no arquivo.");
+  $("grade").innerHTML='<div class="estado">Carregando a agenda...</div>';
+  try{ processarLinhas(await lerPlanilha()); carregado=true; desenhar(); }
+  catch(e){ console.error(e); mostrarErro(e.message); }
+}
+function mostrarErro(detalhe){
+  carregado=false;
+  $("anterior").disabled=true; $("proximo").disabled=true;
+  $("grade").innerHTML='<div class="estado">Não foi possível carregar a agenda agora.<br>'+
+    'Chame no WhatsApp para consultar as datas.<br><br>'+
+    '<button type="button" class="limpar" id="tentar">Tentar de novo</button>'+
+    '<br><small style="opacity:.7">'+esc(detalhe)+'</small></div>';
+  $("tentar").addEventListener("click", carregar);
+  const a=$("whats");
+  a.href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent("Olá! Gostaria de consultar as datas disponíveis do "+CONFIG.nomeSitio+".");
+  a.setAttribute("aria-disabled","false");
+  $("resumo").textContent="Agenda indisponível no momento.";
+}
+
+function desenhar(){
+  const ano=vista.getFullYear(), mes=vista.getMonth();
+  const nomeMes=new Intl.DateTimeFormat("pt-BR",{month:"long"}).format(vista);
+  $("mes").textContent=nomeMes.charAt(0).toUpperCase()+nomeMes.slice(1)+" "+ano;
+  const limite=new Date(hoje.getFullYear(), hoje.getMonth()+CONFIG.mesesAFrente, 1);
+  $("anterior").disabled = ano===hoje.getFullYear() && mes===hoje.getMonth();
+  $("proximo").disabled  = vista>=limite;
+
+  const g=$("grade"); g.innerHTML="";
+  const inicioSemana=new Date(ano,mes,1).getDay(), total=new Date(ano,mes+1,0).getDate();
+  for(let i=0;i<inicioSemana;i++){ const v=document.createElement("div"); v.className="vazio"; g.appendChild(v); }
+  const nomes={livre:"livre",ocupado:"ocupado",pre:"em negociação",passado:"data passada"};
+  for(let n=1;n<=total;n++){
+    const d=new Date(ano,mes,n), st=statusDia(d);
+    const b=document.createElement("button");
+    b.type="button"; b.className="dia "+st; b.textContent=n;
+    if (mesmoDia(d,hoje)) b.classList.add("hoje");
+    b.setAttribute("aria-label", n+" de "+nomeMes+", "+nomes[st]);
+    if (st!=="livre") b.disabled=true;
+    else {
+      const fimSel = sel.fim || sel.ini;
+      if (sel.ini && d>=sel.ini && d<=fimSel){
+        b.classList.add("faixa"); b.setAttribute("aria-pressed","true");
+        if (mesmoDia(d,sel.ini)) b.classList.add("inicio");
+        if (mesmoDia(d,fimSel)) b.classList.add("fim");
+      }
+      b.addEventListener("click",()=>escolher(d));
+    }
+    g.appendChild(b);
+  }
+}
+function intervaloLivre(a,b){
+  for(let d=a; d<=b; d=somaDias(d,1)) if (statusDia(d)!=="livre") return false;
+  return true;
+}
+function escolher(d){
+  let aviso="";
+  if (!sel.ini || sel.fim || d<sel.ini) sel={ini:d,fim:null};
+  else if (mesmoDia(d,sel.ini)) sel={ini:null,fim:null};
+  else if (intervaloLivre(sel.ini,d)) sel.fim=d;
+  else { sel={ini:d,fim:null}; aviso="Há dias ocupados nesse intervalo. Escolha outro período."; }
+  desenhar(); atualizarPainel(aviso);
+}
+function atualizarPainel(aviso){
+  const a=$("whats"), r=$("resumo");
+  $("limpar").hidden = !sel.ini;
+  if (!sel.ini){
+    r.textContent="Escolha uma data no calendário.";
+    a.setAttribute("aria-disabled","true"); a.href="#";
+    return;
+  }
+  let periodo, texto;
+  if (!sel.fim){
+    periodo="no dia "+fmt(sel.ini)+" ("+DIAS[sel.ini.getDay()]+")";
+    texto="<strong>"+DIAS[sel.ini.getDay()]+", "+fmt(sel.ini)+"</strong>Toque em outro dia se quiser um período.";
+  } else {
+    const n=Math.round((sel.fim-sel.ini)/864e5)+1;
+    periodo="de "+fmt(sel.ini)+" ("+DIAS[sel.ini.getDay()]+") a "+fmt(sel.fim)+" ("+DIAS[sel.fim.getDay()]+"), "+n+" dias";
+    texto="<strong>"+fmt(sel.ini,false)+" a "+fmt(sel.fim)+"</strong>"+n+" dias";
+  }
+  if (aviso) texto+='<br><span class="aviso">'+aviso+"</span>";
+  r.innerHTML=texto;
+  const msg=CONFIG.mensagem.replace("{sitio}",CONFIG.nomeSitio).replace("{periodo}",periodo);
+  a.href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg);
+  a.setAttribute("aria-disabled","false");
+}
+
+$("anterior").addEventListener("click",()=>{ if(!carregado) return; vista=new Date(vista.getFullYear(),vista.getMonth()-1,1); desenhar(); });
+$("proximo").addEventListener("click",()=>{ if(!carregado) return; vista=new Date(vista.getFullYear(),vista.getMonth()+1,1); desenhar(); });
+$("limpar").addEventListener("click",()=>{ sel={ini:null,fim:null}; desenhar(); atualizarPainel(); });
+
+carregar();
+</script>
+</body>
+</html>
